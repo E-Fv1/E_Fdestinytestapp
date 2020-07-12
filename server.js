@@ -10,10 +10,10 @@ const app = express()
 
 const apiKey = "d17b4947cf3e43369fe5bb66c59d5b3d"
 
-app.listen(58616, function () {
-    console.log("Example app on port 8000")
-})
-var port = process.env.PORT || 58616;
+//app.listen(58616, function () {
+//    console.log("Example app on port 8000")
+//})
+var port = process.env.PORT || 8000;
 console.log("Node is listening on port " + port)
 
 app.get("/", function (req, res) {
