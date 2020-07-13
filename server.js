@@ -1,6 +1,7 @@
 const express = require("express")
 const request = require("request")
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+const bodyParser = require("body-parser")
+//const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const app = express()
 //app.get("/", function (req, res) {
 //    res.send("Hello World")
@@ -22,25 +23,77 @@ app.get("/", function (req, res) {
 
 var options = {
     'method': 'GET',
-    'url': 'https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/dattowatto/',
+    'url': 'https://www.bungie.net/Platform/Destiny2/3/ItsTheOzze/Account/', // need too put in rest of info
     'headers': {
         'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
         'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1adlRgw@@qYj'
     }
 };
-request(options, function (error, response) {
-    if (error) throw new Error(error);
-    console.log("this is the thingy" + response.body);
-});
+//request(options, function (error, response) {
+//    if (error) throw new Error(error);
+//    console.log("this is the thingy" + response.body);
+//});
 var testVar
 
 //var testVar2 = testVar
 console.log(testVar)
 //console.log(testVar2)
 app.get("/bruh", function (req, res) {
+    options.url = "https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/dattowatto/"
     request(options, function (error, response) {
         if (error) throw new Error(error);
         res.send(response.body);
+        //res.send(options)
     });
     //res.send(result+"AAAAAAAAAAAAAAAAAAAAA  ")
 })
+
+
+app.get("/lookupName", function (req, res) {
+    let nameToSearch = req.query.bungieName //"ItsTheOzze"
+    options = {
+        'method': 'GET',
+        'url': 'https://www.bungie.net/Platform//User/SearchUsers?q=' + nameToSearch,
+        'headers': {
+            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
+        }
+    };
+    //options.url = "https://www.bungie.net/Platform/User/SearchUsers?q=" + nameToSearch
+    request(options, function (error, response) {
+        let result;
+        if (error) throw new Error(error);
+        //console.log(response.body);
+        result = JSON.parse(response.body)
+        //result = result.split(": ")
+        if (typeof result == "undefined") {
+            result = "Doesn't exist or is non-steam"
+        }
+        console.log(result.Response[0].steamDisplayName)
+        res.json(result.Response[0].steamDisplayName)
+    });
+})
+
+
+    //app.post("/lookupName", function (req, res) {
+    //    let nameToSearch = "ItsTheOzze" //req.query.body.bungieName
+    //    options = {
+    //        'method': 'GET',
+    //        'url': 'https://www.bungie.net/Platform//User/SearchUsers?q=' + nameToSearch,
+    //        'headers': {
+    //            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+    //            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
+    //        }
+    //    };
+    //    request(options, function (error, response) {
+    //        if (error) throw new Error(error);
+    //        res.json(response.body);
+    //    });
+
+    //})
+//})
+
+
+//app.get("/lookupName", function (req, res) {
+//    res.send("Test")
+//})
