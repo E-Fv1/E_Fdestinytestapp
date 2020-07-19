@@ -3,6 +3,8 @@ const request = require("request")
 const bodyParser = require("body-parser")
 //const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const app = express()
+var tempLoginURL = ""
+var recivedAuthCode
 //app.get("/", function (req, res) {
 //    res.send("Hello World")
 //})
@@ -10,6 +12,16 @@ const app = express()
 //var baseRequest = requst.defaults({ headers: { "X-API-KEY": d17b4947cf3e43369fe5bb66c59d5b3d}})
 
 const apiKey = "d17b4947cf3e43369fe5bb66c59d5b3d"
+
+function randomString(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+}
 
 app.listen(process.env.PORT || 8000, function () {
     console.log("Example app on port 8000")
@@ -42,15 +54,21 @@ app.get("/bruh", function (req, res) {
     options.url = "https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/dattowatto/"
     request(options, function (error, response) {
         if (error) throw new Error(error);
-        res.send(response.body);
+        res.set("Content-type", "text/html")
+        res.send(response.body+"<script>console.log(window.location.href)</script>");
         //res.send(options)
     });
     //res.send(result+"AAAAAAAAAAAAAAAAAAAAA  ")
+    //console.log(window.location.href)
+
 })
 
+var result
 
 app.get("/lookupName", function (req, res) {
     let nameToSearch = req.query.bungieName //"ItsTheOzze"
+    
+
     options = {
         'method': 'GET',
         'url': 'https://www.bungie.net/Platform//User/SearchUsers?q=' + nameToSearch,
@@ -59,20 +77,61 @@ app.get("/lookupName", function (req, res) {
             'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
         }
     };
+
     //options.url = "https://www.bungie.net/Platform/User/SearchUsers?q=" + nameToSearch
-    request(options, function (error, response) {
-        let result;
+    
+    var steamName
+    //var bungieProfileResults =
+        request(options, function (error, response) {
+        
         if (error) throw new Error(error);
         //console.log(response.body);
         result = JSON.parse(response.body)
-        //result = result.split(": ")
+
         if (typeof result == "undefined") {
             result = "Doesn't exist or is non-steam"
         }
-        console.log(result.Response[0].steamDisplayName)
-        res.json(result.Response[0].steamDisplayName)
+        steamName = result.Response[0].membershipId
+        result = "Steam Name: " + result.Response[0].steamDisplayName + ", Membership ID: " + result.Response[0].membershipId
+        return result
+
+    })
+
+    //result = result.split(": ")
+    //console.log(bungieProfileResults)
+    console.log(result)
+    //var steamName = result.Response[0].membershipId
+
+    var options = {
+        'method': 'GET',
+        'url': 'https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/-1/' + steamName,
+        'headers': {
+            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1TdlRgw@@zND'
+        }
+    };
+
+    var destinyMembershipID = "4611686018475731060"
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        if (response.body) {
+            destinyMembershipID = response.body
+        } else {
+            //maybe add mine as default
+        }
     });
+
+    //console output
+    console.log(result + "Destiny Membership ID: " + destinyMembershipID)
+
+    //page output
+    res.set("Content-type", "text/html")
+    res.send("<p>" + result + "<br><br>Destiny Membership ID: " + destinyMembershipID + "</p>" +"<hr><br><p>If first result is undefined reload page<\p>")
+    
 })
+        //res.json(result.Response[0].steamDisplayName)
+
+    
 
 
     //app.post("/lookupName", function (req, res) {
@@ -97,3 +156,30 @@ app.get("/lookupName", function (req, res) {
 //app.get("/lookupName", function (req, res) {
 //    res.send("Test")
 //})
+
+app.get("/loginTest", function (req, res) {
+    var options = {
+        'method': 'GET',
+        'url': 'https://www.bungie.net/en/oauth/authorize?client_id=33391&response_type=code&state=teY7eHQIdo',
+        'headers': {
+            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1HNhRgw@@lWt; bungles=WebView=False&UserFlowMode=SignIn&UserICT=None&UserSCT=None&UserForce=False&UserIDN='
+        }
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        res.send(response.body);
+        
+    });
+})
+
+app.get("/en/User/SignIn/SteamId", function (req, res) {
+    res.set("Content-type", "text/html")
+    res.send("<!DOCTYPE html><html lang=\"en\"><head><title>YAYYY</title></head><body><a id=\"theLink\" href=\"https://www.bungie.net/\">CLICKMETHANKS</a><script>var bruh=window.location.href;bruh=bruh.split(\"\");bruh.splice(0,\"http://73.241.98.56:8000\".length);bruh=bruh.join(\"\");document.getElementById(\"theLink\").href=\"https://www.bungie.net/\"+bruh;</script></body></html>")
+});
+
+app.get("/receive", function (req, res) {
+    code = req.query.code
+    console.log(code)
+    res.send(code)
+})
