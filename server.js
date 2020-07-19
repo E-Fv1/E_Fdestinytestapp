@@ -175,7 +175,7 @@ app.get("/loginTest", function (req, res) {
 
 app.get("/en/User/SignIn/SteamId", function (req, res) {
     res.set("Content-type", "text/html")
-    res.send("<!DOCTYPE html><html lang=\"en\"><head><title>YAYYY</title></head><body><a id=\"theLink\" href=\"https://www.bungie.net/\">CLICKMETHANKS</a><script>var bruh=window.location.href;bruh=bruh.split(\"\");bruh.splice(0,\"http://73.241.98.56:8000\".length);bruh=bruh.join(\"\");document.getElementById(\"theLink\").href=\"https://www.bungie.net/\"+bruh;</script></body></html>")
+    res.send("<!DOCTYPE html><html lang=\"en\"><head><title>YAYYY</title></head><body><a id=\"theLink\" href=\"https://www.bungie.net/\">CLICKMETHANKS</a><script>var bruh=window.location.href;bruh=bruh.split(\"\");bruh.splice(0,\"https://destiny2test-e-f.herokuapp.com\".length);bruh=bruh.join(\"\");document.getElementById(\"theLink\").href=\"https://www.bungie.net/\"+bruh;</script></body></html>")
 });
 
 app.get("/receive", function (req, res) {
