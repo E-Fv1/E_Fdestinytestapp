@@ -1,10 +1,12 @@
 const express = require("express")
 const request = require("request")
 const bodyParser = require("body-parser")
+const fs = require("fs")
+
 //const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const app = express()
 var tempLoginURL = ""
-var recivedAuthCode
+var userList;
 //app.get("/", function (req, res) {
 //    res.send("Hello World")
 //})
@@ -182,4 +184,42 @@ app.get("/receive", function (req, res) {
     code = req.query.code
     console.log(code)
     res.send(code)
+
+    var options = {
+        'method': 'POST',
+        'url': 'https://www.bungie.net/Platform/App/OAuth/Token/',
+        'headers': {
+            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1S9hRgw@@ChX'
+        },
+        body: "client_id=33391&grant_type=authorization_code&code=" + code
+
+    };
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+    });
+
 })
+
+app.get("/storeData", function (req, res) {
+    let authcode = req.query.authCode
+    let userID = req.query.id
+
+    let rawUserData = fs.readFileSync("userinfo.json")
+    let parsedData = JSON.parse(rawUserData)
+    //if (typeof parsedData.users[userID] == undefined){
+        parsedData.users.push([authcode, userID])
+    //}
+    //maybe use req.ip to assign the user a unique index # 
+    let idIndex = parsedData.users.length - 1
+    console.log(parsedData.users[idIndex][0])//.users[userID] = "authcode"
+    //console.log(userID)
+    //res.send(parsedData)
+    let data = JSON.stringify(parsedData, null, 2);
+    fs.writeFileSync("userinfo.json", data)
+    res.set("Content-type", "text/html")
+    res.send("<body><script>alert(\"Session ID: \" + " + idIndex +");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
+
+});
