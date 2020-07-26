@@ -185,7 +185,7 @@ app.get("/receive", function (req, res) {
     console.log(code)
 
     res.set("Content-type", "text/html")
-    res.send("<body><script>window.location.replace(\"https://destiny2test-e-f.herokuapp.com/storeData?authCode="+ code +"&id=7777777\")<script></body>")
+    res.send("<body><script>window.location.replace(\"https://destiny2test-e-f.herokuapp.com/storeData?authCode="+ code +"&id=7777777\")</script></body>")
 
     var options = {
         'method': 'POST',
