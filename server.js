@@ -183,7 +183,9 @@ app.get("/en/User/SignIn/SteamId", function (req, res) {
 app.get("/receive", function (req, res) {
     code = req.query.code
     console.log(code)
-    res.send(code)
+
+    res.set("Content-type", "text/html")
+    res.send("<body><script>window.location.replace(\"https://destiny2test-e-f.herokuapp.com/storeData?authCode="+ code +"&id=7777777\")<script></body>")
 
     var options = {
         'method': 'POST',
@@ -204,13 +206,13 @@ app.get("/receive", function (req, res) {
 })
 
 app.get("/storeData", function (req, res) {
-    let authcode = req.query.authCode
+    let authCode = req.query.authCode
     let userID = req.query.id
 
     let rawUserData = fs.readFileSync("userinfo.json")
     let parsedData = JSON.parse(rawUserData)
     //if (typeof parsedData.users[userID] == undefined){
-        parsedData.users.push([authcode, userID])
+        parsedData.users.push([authCode, userID])
     //}
     //maybe use req.ip to assign the user a unique index # 
     let idIndex = parsedData.users.length - 1
@@ -220,6 +222,6 @@ app.get("/storeData", function (req, res) {
     let data = JSON.stringify(parsedData, null, 2);
     fs.writeFileSync("userinfo.json", data)
     res.set("Content-type", "text/html")
-    res.send("<body><script>alert(\"Session ID: \" + " + idIndex +");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
+    res.send("<body><script>alert(\"Session ID: " + idIndex + " " + authCode +"\");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
 
 });
