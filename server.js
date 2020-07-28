@@ -31,8 +31,10 @@ app.listen(process.env.PORT || 8000, function () {
 var port = process.env.PORT || 8000;
 console.log("Node is listening on port " + port)
 
+app.use("/", express.static(__dirname + "/public"));
+
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/html/index.html")
+    res.sendFile(__dirname + "/views/index.html")
 })
 
 var options = {
@@ -48,6 +50,11 @@ var options = {
 //    console.log("this is the thingy" + response.body);
 //});
 var testVar
+
+app.get("/css/style.css", function (req, res) {
+    res.sendFile(__dirname + "/html/css/style.css") //p dumb probably not how to actually do it
+    //console.log(
+})
 
 //var testVar2 = testVar
 console.log(testVar)
@@ -214,7 +221,7 @@ app.get("/storeData", function (req, res) {
     //if (typeof parsedData.users[userID] == undefined){
         parsedData.users.push([authCode, userID])
     //}
-    //maybe use req.ip to assign the user a unique index # 
+    //maybe use req.ip to assign the user a unique index # random 
     let idIndex = parsedData.users.length - 1
     console.log(parsedData.users[idIndex][0])//.users[userID] = "authcode"
     //console.log(userID)

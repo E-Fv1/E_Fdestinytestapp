@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\html"
+    "\\html",
+    "\\public"
   ],
-  "SelectedNode": "\\userinfo.json",
+  "SelectedNode": "\\public",
   "PreviewInSolutionExplorer": false
 }
