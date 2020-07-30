@@ -1,87 +1,134 @@
 <html lang="en">
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap" rel="stylesheet"><!-- google fonts -->
-        <link rel="stylesheet" href="https://use.typekit.net/keg2rfp.css"> <!-- adobe fonts font-family: adobe-garamond-pro, serif;font-weight: 400;font-style: normal; -->
-        <!--
-        <style>
-        
-        </style>
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap" rel="stylesheet"><!-- google fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/keg2rfp.css"> <!-- adobe fonts font-family: adobe-garamond-pro, serif;font-weight: 400;font-style: normal; -->
+    <!--
+    <style>
+    </style>
 
-        <style>body{font-family: 'Source Sans Pro', Times}h1{text-align: center;font-size: 48px;margin: 0;font-family: 'Roboto', sans-serif;background-color: Silver;}
-        -->
-        
-        <script>window['lggTT'] = { darkmode: true, recolorLinks: true }</script>
-        <script type="text/javascript" src="https://light.gg/tooltips.js" async></script>
-        
-        <link rel="stylesheet" href="/style.css" />
-    </head>
-	<body>
-		<h1 id = "Top">Destiny 2 Test Thingy</h1>
-        
-        <button onclick="showGuns()">Show Weapons</button>
-            
-            <div style="display: none" id="weapons">
-                <a href="https://www.light.gg/db/items/1853180924/">Traveler's Chosen</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/2164448701/">Apostate</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/2742838701/">Dire Promise</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/654608616/">Revoker</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/3116356268/">Spare Rations</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/4190932264/">Beloved</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/821154603/">Gnawing Hunger</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/1907698332/">Summoner</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/1821724780/">Seven Seraph Shotgun</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/603242241/">Hammerhead</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/614426548/">Falling Guillotine</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/2257180473/">Interference VI</a>
-                    <br />
-                <a href="https://www.light.gg/db/items/991314988/">Bad Omens</a>
-                    <br />
-                </div>
-        <h2 >Steam username lookup</h2>
+    <style>body{font-family: 'Source Sans Pro', Times}h1{text-align: center;font-size: 48px;margin: 0;font-family: 'Roboto', sans-serif;background-color: Silver;}
+    -->
 
-        <script>
+    <script>window['lggTT'] = { darkmode: true, recolorLinks: true }</script>
+    <script type="text/javascript" src="https://light.gg/tooltips.js" async></script>
+
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+    <h1 id="Top">Destiny 2 Test Thingy</h1>
+
+    <button onclick="showGuns()">Show Weapons</button>
+
+    <div style="display: none" id="weapons">
+        <a href="https://www.light.gg/db/items/1853180924/">Traveler's Chosen</a>
+        <br />
+        <a href="https://www.light.gg/db/items/2164448701/">Apostate</a>
+        <br />
+        <a href="https://www.light.gg/db/items/2742838701/">Dire Promise</a>
+        <br />
+        <a href="https://www.light.gg/db/items/654608616/">Revoker</a>
+        <br />
+        <a href="https://www.light.gg/db/items/3116356268/">Spare Rations</a>
+        <br />
+        <a href="https://www.light.gg/db/items/4190932264/">Beloved</a>
+        <br />
+        <a href="https://www.light.gg/db/items/821154603/">Gnawing Hunger</a>
+        <br />
+        <a href="https://www.light.gg/db/items/1907698332/">Summoner</a>
+        <br />
+        <a href="https://www.light.gg/db/items/1821724780/">Seven Seraph Shotgun</a>
+        <br />
+        <a href="https://www.light.gg/db/items/603242241/">Hammerhead</a>
+        <br />
+        <a href="https://www.light.gg/db/items/614426548/">Falling Guillotine</a>
+        <br />
+        <a href="https://www.light.gg/db/items/2257180473/">Interference VI</a>
+        <br />
+        <a href="https://www.light.gg/db/items/991314988/">Bad Omens</a>
+        <br />
+    </div>
+    <h2>Steam username lookup</h2>
+
+    <form action="/lookupName" method="get">
+        <label>Bungie.net Name: </label>
+        <input type="text" name="bungieName" value="ItsTheOzze" />
+        <input type="submit" value="Search" />
+    </form>
+    <hr />
+    <a href="/bruh">Bruh</a>
+    <br />
+    <a href="/loginTest">Login Test</a>
+    <a href="/storeData?authCode=777777777&id=0">GOGOGOGO</a>
+    <br /><br /><br />
+    <a href="#Bottom" class="fakeButton">To Bottom</a>
+    <br /><hr /><br />
+    <button onclick="showPVESheet()">Show PVE Data</button>
+    <iframe style="display:none" id="PVESheet" width="1880" height="900" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT3FH9AcNJbk9X50QuXeGSmJSYjNHIw6D6E4l6lwYiX8vMx_6YqIlk-en9ym_L7hYhB3imVEAlavk2Q/pubhtml?widget=true&amp;headers=false"></iframe>
+    <br /><br /><br /><hr /><br />
+    <a id="midGoTop" style="display: none; justify-content:center" class="fakeButton" font-size="20" href="#Top">To Top</a>
+    <br /><hr /><br />
+    <button onclick="showPVPSheet()">Show PVP Data</button>
+    <iframe style="display:none" id="PVPSheet" width="1880" height="900" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRD5nJsjTgc5spPSDCmTwDEHoSFGzhLF41v-PnXpqh4P_YfxHMqC-uHGRF9fkg9EPj_7fMjyvC2WrAH/pubhtml?widget=true&amp;headers=false"></iframe>
+    <br /><br /><br /><br /><hr /><br />
+    <a id="Bottom" class="fakeButton" font-size="20" href="#Top">To Top</a>
+    <br /><br /><br />
+
+    <!--  \/  \/  JS  \/  \/  -->
+
+    <script>
+        var periodicRun = setInterval(function () {
+            if (isBothSheet()) {
+                showMidGoTop(true)
+            } else {
+                showMidGoTop(false)
+            }
+        }, 1500)
+
+        function isBothSheet() {
+            let x = document.getElementById("PVESheet")
+            let y = document.getElementById("PVPSheet")
+            if (x.style.display === "block" && y.style.display === "block") {
+                return true
+            } else {
+                return false
+            }
+        }
+
         function showGuns() {
             let x = document.getElementById("weapons")
-            if(x.style.display === "none"){
+            if (x.style.display === "none") {
                 x.style.display = "block"
             } else {
                 x.style.display = "none"
             }
         }
-        </script>
 
-        <form action="/lookupName" method="get">
-            <label>Bungie.net Name: </label>
-            <input type="text" name="bungieName" value="ItsTheOzze" />
-            <input type="submit" value="Search" />
-            <hr />
-            <a href="/bruh">Bruh</a>
-            <br />
-            <a href="/loginTest">Login Test</a>
-            <a href="/storeData?authCode=777777777&id=0">GOGOGOGO</a>
-            <a href="#Bottom">To Bottom</a>
-            <br />
-            <hr />
-            <br />
-            <iframe width="1880" height="900" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT3FH9AcNJbk9X50QuXeGSmJSYjNHIw6D6E4l6lwYiX8vMx_6YqIlk-en9ym_L7hYhB3imVEAlavk2Q/pubhtml?widget=true&amp;headers=false"></iframe>
-            <br />
-            <hr />
-            <br />
-            <a id= "Bottom" font-size="20" href="#Top">To Top</a>
-            <br />
-            <br />
-            <br />
-		</form>
-	</body>
+        function showPVESheet() {
+            let x = document.getElementById("PVESheet")
+            if (x.style.display === "none") {
+                x.style.display = "block"
+            } else {
+                x.style.display = "none"
+            }
+        }
+
+        function showPVPSheet() {
+            let x = document.getElementById("PVPSheet")
+            if (x.style.display === "none") {
+                x.style.display = "block"
+            } else {
+                x.style.display = "none"
+            }
+        }
+
+        function showMidGoTop(display) {
+            let x = document.getElementById("midGoTop")
+            if (display) {
+                x.style.display = "block"
+            } else {
+                x.style.display = "none"
+            }
+        }
+    </script>
+</body>
 </html>

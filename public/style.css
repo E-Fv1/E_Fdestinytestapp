@@ -32,3 +32,25 @@ button {
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.fakeButton {
+    background-color: dimgray;
+    font-size: 20px;
+    color: #fff;
+}
+
+    .fakeButton:visited {
+        color: #fff
+    }
+
+    .fakeButton:hover {
+        background-color: #b5b5b5
+    }
+
+    .fakeButton:focus {
+        color: #fff;
+    }
+
+    .fakeButton:hover, .fakeButton:active {
+        color: black;
+    }

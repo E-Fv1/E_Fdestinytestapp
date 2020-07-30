@@ -3,6 +3,10 @@ const request = require("request")
 const bodyParser = require("body-parser")
 const fs = require("fs")
 
+//
+//TODO: Do a todayindestiny style altars of sorrow weapon indicator
+//
+
 //const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const app = express()
 var tempLoginURL = ""
@@ -16,13 +20,23 @@ var userList;
 const apiKey = "d17b4947cf3e43369fe5bb66c59d5b3d"
 
 function randomString(length) {
-        var result = '';
-        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for (var i = 0; i < length; i++) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+function parseDate(rawDate) {
+    let result
+    //dateParserRegex = new RegExp("", + gi) split the string instead
+    //result.split(" ") ok no need for split
+    let day = rawDate.getDate()
+    let month = rawDate.getMonth() + 1 //since is 0-11 need to offset by 1
+    result = month + "/" + day
+    return result // formatted like 7/27
 }
 
 app.listen(process.env.PORT || 8000, function () {
@@ -64,19 +78,17 @@ app.get("/bruh", function (req, res) {
     request(options, function (error, response) {
         if (error) throw new Error(error);
         res.set("Content-type", "text/html")
-        res.send(response.body+"<script>console.log(window.location.href)</script>");
+        res.send(response.body + "<script>console.log(window.location.href)</script>");
         //res.send(options)
     });
     //res.send(result+"AAAAAAAAAAAAAAAAAAAAA  ")
     //console.log(window.location.href)
-
 })
 
 var result
 
 app.get("/lookupName", function (req, res) {
     let nameToSearch = req.query.bungieName //"ItsTheOzze"
-    
 
     options = {
         'method': 'GET',
@@ -88,11 +100,10 @@ app.get("/lookupName", function (req, res) {
     };
 
     //options.url = "https://www.bungie.net/Platform/User/SearchUsers?q=" + nameToSearch
-    
+
     var steamName
     //var bungieProfileResults =
-        request(options, function (error, response) {
-        
+    request(options, function (error, response) {
         if (error) throw new Error(error);
         //console.log(response.body);
         result = JSON.parse(response.body)
@@ -103,7 +114,6 @@ app.get("/lookupName", function (req, res) {
         steamName = result.Response[0].membershipId
         result = "Steam Name: " + result.Response[0].steamDisplayName + ", Membership ID: " + result.Response[0].membershipId
         return result
-
     })
 
     //result = result.split(": ")
@@ -135,32 +145,27 @@ app.get("/lookupName", function (req, res) {
 
     //page output
     res.set("Content-type", "text/html")
-    res.send("<p>" + result + "<br><br>Destiny Membership ID: " + destinyMembershipID + "</p>" +"<hr><br><p>If first result is undefined reload page<\p>")
-    
+    res.send("<p>" + result + "<br><br>Destiny Membership ID: " + destinyMembershipID + "</p>" + "<hr><br><p>If first result is undefined reload page<\p>")
 })
-        //res.json(result.Response[0].steamDisplayName)
+//res.json(result.Response[0].steamDisplayName)
 
-    
+//app.post("/lookupName", function (req, res) {
+//    let nameToSearch = "ItsTheOzze" //req.query.body.bungieName
+//    options = {
+//        'method': 'GET',
+//        'url': 'https://www.bungie.net/Platform//User/SearchUsers?q=' + nameToSearch,
+//        'headers': {
+//            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+//            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
+//        }
+//    };
+//    request(options, function (error, response) {
+//        if (error) throw new Error(error);
+//        res.json(response.body);
+//    });
 
-
-    //app.post("/lookupName", function (req, res) {
-    //    let nameToSearch = "ItsTheOzze" //req.query.body.bungieName
-    //    options = {
-    //        'method': 'GET',
-    //        'url': 'https://www.bungie.net/Platform//User/SearchUsers?q=' + nameToSearch,
-    //        'headers': {
-    //            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
-    //            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
-    //        }
-    //    };
-    //    request(options, function (error, response) {
-    //        if (error) throw new Error(error);
-    //        res.json(response.body);
-    //    });
-
-    //})
 //})
-
+//})
 
 //app.get("/lookupName", function (req, res) {
 //    res.send("Test")
@@ -178,7 +183,6 @@ app.get("/loginTest", function (req, res) {
     request(options, function (error, response) {
         if (error) throw new Error(error);
         res.send(response.body);
-        
     });
 })
 
@@ -192,7 +196,7 @@ app.get("/receive", function (req, res) {
     console.log(code)
 
     res.set("Content-type", "text/html")
-    res.send("<body><script>window.location.replace(\"https://destiny2test-e-f.herokuapp.com/storeData?authCode="+ code +"&id=7777777\")</script></body>")
+    res.send("<body><script>window.location.replace(\"https://destiny2test-e-f.herokuapp.com/storeData?authCode=" + code + "&id=7777777\")</script></body>")
 
     var options = {
         'method': 'POST',
@@ -203,13 +207,11 @@ app.get("/receive", function (req, res) {
             'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1S9hRgw@@ChX'
         },
         body: "client_id=33391&grant_type=authorization_code&code=" + code
-
     };
     request(options, function (error, response) {
         if (error) throw new Error(error);
         console.log(response.body);
     });
-
 })
 
 app.get("/storeData", function (req, res) {
@@ -219,9 +221,9 @@ app.get("/storeData", function (req, res) {
     let rawUserData = fs.readFileSync("userinfo.json")
     let parsedData = JSON.parse(rawUserData)
     //if (typeof parsedData.users[userID] == undefined){
-        parsedData.users.push([authCode, userID])
+    parsedData.users.push([authCode, userID])
     //}
-    //maybe use req.ip to assign the user a unique index # random 
+    //maybe use req.ip to assign the user a unique index # random
     let idIndex = parsedData.users.length - 1
     console.log(parsedData.users[idIndex][0])//.users[userID] = "authcode"
     //console.log(userID)
@@ -229,6 +231,5 @@ app.get("/storeData", function (req, res) {
     let data = JSON.stringify(parsedData, null, 2);
     fs.writeFileSync("userinfo.json", data)
     res.set("Content-type", "text/html")
-    res.send("<body><script>alert(\"Session ID: " + idIndex + " " + authCode +"\");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
-
+    res.send("<body><script>alert(\"Session ID: " + idIndex + " " + authCode + "\");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
 });
