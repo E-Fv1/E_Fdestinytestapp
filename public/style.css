@@ -5,7 +5,8 @@
 */
 body {
     font-family: 'Source Sans Pro', Times;
-    background-color: lightgray;
+    background-color: #131313;
+    color: white
 }
 
 h1 {
@@ -13,7 +14,8 @@ h1 {
     font-size: 48px;
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: Silver;
+    background-color: #343434;
+    color: white
 }
 
 button {
@@ -53,4 +55,32 @@ button {
 
     .fakeButton:hover, .fakeButton:active {
         color: black;
+    }
+
+.R1 {
+    background-color: #343434;
+}
+
+.tableTitle {
+    color: white;
+}
+
+td {
+    width: 256px;
+}
+
+a {
+    color: #09f
+}
+
+    a:visited {
+        color: #09f
+    }
+
+    a:focus {
+        color: #09f
+    }
+
+    a:focus, a:active {
+        color: #09f
     }
