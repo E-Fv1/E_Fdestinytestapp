@@ -9,7 +9,7 @@
     <style>body{font-family: 'Source Sans Pro', Times}h1{text-align: center;font-size: 48px;margin: 0;font-family: 'Roboto', sans-serif;background-color: Silver;}
     -->
 
-    <script>window['lggTT'] = { darkMode: true , recolorLinks: true }</script>
+    <script>window['lggTT'] = { darkMode: true, recolorLinks: true }</script>
     <script type="text/javascript" src="https://light.gg/tooltips.js" async></script>
 
     <link rel="stylesheet" href="/style.css" />
@@ -38,7 +38,6 @@
                 <td><a href="https://www.light.gg/db/items/2742838701/">Dire Promise</a></td>
                 <td><a href="https://www.light.gg/db/items/3116356268/">Spare Rations</a></td>
                 <td></td>
-
             </tr>
             <tr>
                 <td>Shotguns</td>
@@ -46,14 +45,12 @@
                 <td></td>
 
                 <td></td>
-
             </tr>
             <tr class="R1">
                 <td class="tableTitle">Auto Rifles</td>
                 <td><a href="https://www.light.gg/db/items/821154603/">Gnawing Hunger</a></td>
                 <td><a href="https://www.light.gg/db/items/1907698332/">Summoner</a></td>
                 <td></td>
-
             </tr>
             <tr>
                 <td>Machine Guns</td>
@@ -61,7 +58,6 @@
                 <td></td>
 
                 <td></td>
-
             </tr>
             <tr class="R1">
                 <td class="tableTitle">Swords</td>
@@ -69,7 +65,6 @@
                 <td></td>
 
                 <td></td>
-
             </tr>
             <tr>
                 <td>Grenade Launchers</td>
@@ -77,7 +72,6 @@
                 <td></td>
 
                 <td></td>
-
             </tr>
             <tr class="R1">
                 <td class="tableTitle">Rocket Launchers</td>
@@ -85,19 +79,56 @@
                 <td></td>
 
                 <td></td>
-
             </tr>
         </table>
 
-
-        <br />
-        
         <br />
 
-
+        <br />
     </div>
-    <h2>Steam username lookup</h2>
 
+    <h2>Steam username lookup</h2>
+    <a style="display:none" id="apostatePicture" href="https://www.light.gg/db/items/2164448701/"><h2>Apostate</h2><img src="/images/Apostate.png" alt="" /></a>
+    <a style="display:none" id="blasphemerPicture" href="https://www.light.gg/db/items/2782847179/"><h2>Blasphemer</h2><img src="/images/Blasphemer.png" alt="" /></a>
+    <a style="display:none" id="hereticPicture" href="https://www.light.gg/db/items/3067821200/"><h2>Heretic</h2><img src="/images/Heretic.png" alt="" /></a>
+    <script>
+        function parseDate(rawDate) {
+            let result
+            //dateParserRegex = new RegExp("", + gi) split the string instead
+            //result.split(" ") ok no need for split
+            let day = rawDate.getDate()
+            let month = rawDate.getMonth() + 1 //since is 0-11 need to offset by 1
+            result = month + "/" + day
+            return result // formatted like 7/27
+        }
+        let gunNum = 0
+        let todayGun = "None"
+        var today = new Date()
+        today = parseDate(today)
+        var foundResult = false
+        var lootTable = { "loot": [["7/27", 1], ["7/28", 2], ["7/29", 3], ["7/30", 1], ["7/31", 2], ["8/1", 3], ["8/2", 1], ["8/3", 2], ["8/4", 3], ["8/5", 1], ["8/6", 2], ["8/7", 3], ["8/8", 1], ["8/9", 2], ["8/10", 3], ["8/11", 1], ["8/12", 2], ["8/13", 3], ["8/14", 1], ["8/15", 2], ["8/16", 3], ["8/17", 1], ["8/18", 2], ["8/19", 3], ["8/20", 1], ["8/21", 2], ["8/22", 3], ["8/23", 1], ["8/24", 2], ["8/25", 3], ["8/26", 1], ["8/27", 2], ["8/28", 3], ["8/29", 1], ["8/30", 2], ["8/31", 3], ["9/1", 1], ["9/2", 2], ["9/3", 3], ["9/4", 1], ["9/5", 2], ["9/6", 3], ["9/7", 1], ["9/8", 2], ["9/9", 3], ["9/10", 1], ["9/12", 2], ["9/13", 3], ["9/14", 1], ["9/15", 2], ["9/16", 3], ["9/17", 1], ["9/18", 2], ["9/19", 3], ["9/20", 1], ["9/21", 2], ["9/22", 3], ["9/23", 1], ["9/24", 2], ["9/25", 3]] }
+        for (let i = 0; i < lootTable.loot.length && foundResult == false; i++) {
+            if (today == lootTable.loot[i][0]) {
+                foundResult = true
+                gunNum = lootTable.loot[i][1]
+            }
+        }
+        //shotgun 2 sniper 3 rocket 1
+        if (gunNum == 1) {
+            var rocket = document.getElementById("hereticPicture")
+            rocket.style.display = "block"
+            console.log(gunNum)
+        } else if (gunNum == 2) {
+            var shotgun = document.getElementById("blasphemerPicture")
+            shotgun.style.display = "block"
+            console.log(gunNum)
+        } else {
+            var sniper = document.getElementById("apostatePicture")
+            sniper.style.display = "block"
+            console.log(gunNum)
+        }
+        console.log(gunNum)
+    </script>
     <form action="/lookupName" method="get">
         <label>Bungie.net Name: </label>
         <input type="text" name="bungieName" value="ItsTheOzze" />
@@ -109,13 +140,13 @@
     <a href="/loginTest">Login Test</a>
     <a href="/storeData?authCode=777777777&id=0">GOGOGOGO</a>
     <br /><br /><br />
-    <a href="#Bottom" class="fakeButton">To Bottom</a>
+    <a style="display:none" id="toBottom" href="#Bottom" class="fakeButton">To Bottom</a>
     <br /><hr /><br />
     <button onclick="showPVESheet()">Show PVE Data</button>
     <iframe style="display:none" id="PVESheet" width="1880" height="900" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT3FH9AcNJbk9X50QuXeGSmJSYjNHIw6D6E4l6lwYiX8vMx_6YqIlk-en9ym_L7hYhB3imVEAlavk2Q/pubhtml?widget=true&amp;headers=false"></iframe>
-    <br /><br /><br /><hr /><br />
+    <br /><br /><hr /><br />
     <a id="midGoTop" style="display: none; justify-content:center" class="fakeButton" font-size="20" href="#Top">To Top</a>
-    <br /><hr /><br />
+    <br />
     <button onclick="showPVPSheet()">Show PVP Data</button>
     <iframe style="display:none" id="PVPSheet" width="1880" height="900" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRD5nJsjTgc5spPSDCmTwDEHoSFGzhLF41v-PnXpqh4P_YfxHMqC-uHGRF9fkg9EPj_7fMjyvC2WrAH/pubhtml?widget=true&amp;headers=false"></iframe>
     <br /><br /><br /><br /><hr /><br />
@@ -131,12 +162,27 @@
             } else {
                 showMidGoTop(false)
             }
+            if (isAnySheet()) {
+                showToBottom(true)
+            } else {
+                showToBottom(false)
+            }
         }, 1500)
 
         function isBothSheet() {
             let x = document.getElementById("PVESheet")
             let y = document.getElementById("PVPSheet")
             if (x.style.display === "block" && y.style.display === "block") {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        function isAnySheet() {
+            let x = document.getElementById("PVESheet")
+            let y = document.getElementById("PVPSheet")
+            if (x.style.display === "block" || y.style.display === "block") {
                 return true
             } else {
                 return false
@@ -164,6 +210,15 @@
         function showPVPSheet() {
             let x = document.getElementById("PVPSheet")
             if (x.style.display === "none") {
+                x.style.display = "block"
+            } else {
+                x.style.display = "none"
+            }
+        }
+
+        function showToBottom(display) {
+            let x = document.getElementById("toBottom")
+            if (display) {
                 x.style.display = "block"
             } else {
                 x.style.display = "none"

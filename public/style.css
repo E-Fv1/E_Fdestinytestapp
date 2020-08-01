@@ -84,3 +84,8 @@ a {
     a:focus, a:active {
         color: #09f
     }
+
+img {
+    width: 445px;
+    height: 225px;
+}
