@@ -1,11 +1,13 @@
 const express = require("express")
 const request = require("request")
+const sqlite3 = require("sqlite3").verbose(); // may need in future
 const bodyParser = require("body-parser")
 const fs = require("fs")
 
 //
-//TODO: Do a todayindestiny style altars of sorrow weapon indicator
+//TODO: Do a todayindestiny style altars of sorrow weapon indicator DONE
 //
+//NOTE TO SELF: When extracting data from a request function assign it to only the relevant data or else it may become undefined
 
 //const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 const app = express()
@@ -130,7 +132,7 @@ app.get("/lookupName", function (req, res) {
         }
     };
 
-    var destinyMembershipID = "4611686018475731060"
+    var destinyMembershipID //= "4611686018475731060"
     request(options, function (error, response) {
         if (error) throw new Error(error);
         if (response.body) {
@@ -213,6 +215,47 @@ app.get("/receive", function (req, res) {
         console.log(response.body);
     });
 })
+
+//function requestSomething(theOptions) {
+//    let result
+//    request(theOptions, function (error, response) {
+//        if (error) throw new Error(error);
+//        result = response.body;
+//    });
+//    return result
+//} // dont use me pls
+var currentNightfall
+app.get("/nightfall", function (req, res) {
+    //var currentNightfall
+    let options = {
+        'method': 'GET',
+        'url': 'https://www.bungie.net/Platform/Destiny2/Milestones/',
+        'headers': {
+            'X-API-KEY': 'd17b4947cf3e43369fe5bb66c59d5b3d',
+            'Cookie': '__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; bungleanon=AwAAAACtAAAAAAAAAE8lVwEAAAAAAAAAAAAAAABDSc09fzbYCEAAAABA5DUVqx/xTvVGePJHSTYUNmTiL7/zWH35DghiUsvPoI/VoG0YH+gY6qGVUT84+ZRb0ZqhIKZkWq9vIHLlJW41; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1aNlRgw@@FCG'
+        }
+    };
+
+    //let currentNightfall // = "Do not know"
+    var nightfallObj
+    request(options, function (error, response) {
+        if (error) throw new Error(error);
+        //res.send(typeof response.body);
+        let result = JSON.parse(response.body)
+        currentNightfall = response.body
+        if (currentNightfall == "undefined") {
+            currentNightfall = "bruh"
+        }
+        currentNightfall = result.Response["1942283261"].activities
+        //res.send(typeof nightfallObj)
+        //return currentNightfall
+    });
+    console.log(currentNightfall)
+    //nightfallObj = JSON.parse(currentNightfall)
+    //res.send(typeof nightfallObj)
+    //res.send(typeof currentNightfall)
+    res.send(currentNightfall)
+});
 
 app.get("/storeData", function (req, res) {
     let authCode = req.query.authCode
