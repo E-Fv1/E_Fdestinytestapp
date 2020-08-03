@@ -4,8 +4,10 @@ const request = require("request")
 const bodyParser = require("body-parser")
 const fs = require("fs")
 
+//IN PROGRSS: Nightfall info
 //
 //TODO: Do a todayindestiny style altars of sorrow weapon indicator DONE
+//      Use the info images from the D2 PC LFG for additional info using https://widgetbot.io/ and following the feed
 //
 //NOTE TO SELF: When extracting data from a request function assign it to only the relevant data or else it may become undefined
 
@@ -224,6 +226,7 @@ app.get("/receive", function (req, res) {
 //    });
 //    return result
 //} // dont use me pls
+
 var currentNightfall
 app.get("/nightfall", function (req, res) {
     //var currentNightfall
@@ -250,11 +253,20 @@ app.get("/nightfall", function (req, res) {
         //res.send(typeof nightfallObj)
         //return currentNightfall
     });
+
+    
     console.log(currentNightfall)
     //nightfallObj = JSON.parse(currentNightfall)
     //res.send(typeof nightfallObj)
     //res.send(typeof currentNightfall)
-    res.send(currentNightfall)
+
+    let rawActivityInfo = fs.readFileSync("strikeList.json")
+    rawActivityInfo = JSON.parse(rawActivityInfo)
+    let nightfallName = currentNightfall[0]["activityHash"]
+    nightfallName = rawActivityInfo[nightfallName].displayProperties.description
+
+
+    res.send(nightfallName)
 });
 
 app.get("/storeData", function (req, res) {

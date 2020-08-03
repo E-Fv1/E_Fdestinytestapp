@@ -18,6 +18,15 @@ h1 {
     color: white
 }
 
+h3 {
+    text-align:center;
+    font-size: 26px;
+    margin:0;
+    font-family: "Roboto", sans-serif;
+    background-color: #242424;
+    color:white;
+}
+
 button {
     font-family: adobe-garamond-pro,"Roboto", sans-serif;
     /*    font-family: "nueu-roman";*/
