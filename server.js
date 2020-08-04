@@ -4,7 +4,7 @@ const request = require("request")
 const bodyParser = require("body-parser")
 const fs = require("fs")
 
-//IN PROGRSS: Nightfall info
+//IN PROGRSS: Nightfall info, need to make accented letters not appear as question marks
 //
 //TODO: Do a todayindestiny style altars of sorrow weapon indicator DONE
 //      Use the info images from the D2 PC LFG for additional info using https://widgetbot.io/ and following the feed
@@ -239,7 +239,7 @@ app.get("/nightfall", function (req, res) {
         }
     };
 
-    //let currentNightfall // = "Do not know"
+    //let currentNightfall // = "Do not know" uh idk
     var nightfallObj
     request(options, function (error, response) {
         if (error) throw new Error(error);
@@ -255,18 +255,39 @@ app.get("/nightfall", function (req, res) {
     });
 
     
-    console.log(currentNightfall)
+    //console.log(currentNightfall)
     //nightfallObj = JSON.parse(currentNightfall)
     //res.send(typeof nightfallObj)
     //res.send(typeof currentNightfall)
+    //Master refers to the difficulty level, not a master list of strikes or whatever
 
     let rawActivityInfo = fs.readFileSync("strikeList.json")
+    let rawModifierInfo = fs.readFileSync("strikeModifiers.json")
+
     rawActivityInfo = JSON.parse(rawActivityInfo)
-    let nightfallName = currentNightfall[0]["activityHash"]
+    rawModifierInfo = JSON.parse(rawModifierInfo)
+
+    let nightfallName = currentNightfall[0]["activityHash"] // Index 3 is the 1080 Master Level Nightfall
+    let masterNFModifierHashes = currentNightfall[3]["modifierHashes"]
+    //console.log(masterNFModifierHashes)
+
+    let masterNFModifierNames = []; // The first thingy in i index in the array is the name then description
+
+    for (let i = 0; i < masterNFModifierHashes.length; i++) {
+        masterNFModifierNames.push([])
+        //console.log("Number One " + masterNFModifierNames)
+        masterNFModifierNames[i].push(rawModifierInfo[masterNFModifierHashes[i]]["displayProperties"]["name"])
+        //console.log("Number Two " + masterNFModifierNames)
+        masterNFModifierNames[i].push(rawModifierInfo[masterNFModifierHashes[i]]["displayProperties"]["description"])
+    }
+    
+    //console.log("Number Three " +masterNFModifierNames)
     nightfallName = rawActivityInfo[nightfallName].displayProperties.description
-
-
-    res.send(nightfallName)
+    
+    res.set("Content-type", "text/html")
+    let sentData = "<html lang=\"en\"><head><link href=\"https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://use.typekit.net/keg2rfp.css\"><link rel=\"stylesheet\" href=\"/style.css\" /><meta charset=\"utf-8\"/><title>Current Nightfall</title></head><body><h1>What is the current Nightfall?</h1><br /><h3>" + nightfallName + "</h3><h4>Modifiers</h4><ul><li>" + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["name"] + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[1]]["displayProperties"]["name"] + "MD2</li><li>" + rawModifierInfo[masterNFModifierHashes[2]]["displayProperties"]["name"] + " MD3</li><li>" + rawModifierInfo[masterNFModifierHashes[3]]["displayProperties"]["name"] + "MD4</li><li>" + rawModifierInfo[masterNFModifierHashes[4]]["displayProperties"]["name"] + " MD5</li><li>" + rawModifierInfo[masterNFModifierHashes[5]]["displayProperties"]["name"] + " MD6</li><li>" + rawModifierInfo[masterNFModifierHashes[6]]["displayProperties"]["name"] + " MD7</li><li>" + rawModifierInfo[masterNFModifierHashes[7]]["displayProperties"]["name"] + " MD8</li><li>" + rawModifierInfo[masterNFModifierHashes[8]]["displayProperties"]["name"] + " MD9</li><li>" + rawModifierInfo[masterNFModifierHashes[9]]["displayProperties"]["name"]+" MD10</li></ul></body></html>"
+    res.send(sentData)
+    //res.send(masterNFModifierNames)
 });
 
 app.get("/storeData", function (req, res) {
