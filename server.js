@@ -7,7 +7,7 @@ const fs = require("fs")
 //IN PROGRSS: Nightfall info, need to make accented letters not appear as question marks
 //
 //TODO: Do a todayindestiny style altars of sorrow weapon indicator DONE
-//      Use the info images from the D2 PC LFG for additional info using https://widgetbot.io/ and following the feed
+//      
 //
 //NOTE TO SELF: When extracting data from a request function assign it to only the relevant data or else it may become undefined
 
@@ -249,12 +249,11 @@ app.get("/nightfall", function (req, res) {
         if (currentNightfall == "undefined") {
             currentNightfall = "bruh"
         }
-        currentNightfall = result.Response["1942283261"].activities
+        currentNightfall = result.Response["1942283261"].activities;
         //res.send(typeof nightfallObj)
         //return currentNightfall
     });
 
-    
     //console.log(currentNightfall)
     //nightfallObj = JSON.parse(currentNightfall)
     //res.send(typeof nightfallObj)
@@ -280,12 +279,12 @@ app.get("/nightfall", function (req, res) {
         //console.log("Number Two " + masterNFModifierNames)
         masterNFModifierNames[i].push(rawModifierInfo[masterNFModifierHashes[i]]["displayProperties"]["description"])
     }
-    
+
     //console.log("Number Three " +masterNFModifierNames)
     nightfallName = rawActivityInfo[nightfallName].displayProperties.description
-    
+
     res.set("Content-type", "text/html")
-    let sentData = "<html lang=\"en\"><head><link href=\"https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://use.typekit.net/keg2rfp.css\"><link rel=\"stylesheet\" href=\"/style.css\" /><meta charset=\"utf-8\"/><title>Current Nightfall</title></head><body><h1>What is the current Nightfall?</h1><br /><h3>" + nightfallName + "</h3><h4>Modifiers</h4><ul><li>" + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[1]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[1]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[2]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[2]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[3]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[3]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[4]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[4]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[5]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[5]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[6]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[6]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[7]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[7]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[8]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[8]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[9]]["displayProperties"]["name"] + ": "  + rawModifierInfo[masterNFModifierHashes[9]]["displayProperties"]["description"] +"</li></ul></body></html>"
+    let sentData = "<html lang=\"en\"><head><link href=\"https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\"><link rel=\"stylesheet\" href=\"https://use.typekit.net/keg2rfp.css\"><link rel=\"stylesheet\" href=\"/style.css\" /><meta charset=\"utf-8\"/><title>Current Nightfall</title></head><body><h1>What is the current Nightfall?</h1><br /><h3>" + nightfallName + "</h3><h4>Modifiers</h4><ul><li>" + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[0]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[1]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[1]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[2]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[2]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[3]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[3]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[4]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[4]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[5]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[5]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[6]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[6]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[7]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[7]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[8]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[8]]["displayProperties"]["description"] + "</li><li>" + rawModifierInfo[masterNFModifierHashes[9]]["displayProperties"]["name"] + ": " + rawModifierInfo[masterNFModifierHashes[9]]["displayProperties"]["description"] + "</li></ul></body></html>"
     res.send(sentData)
     //res.send(masterNFModifierNames)
 });
