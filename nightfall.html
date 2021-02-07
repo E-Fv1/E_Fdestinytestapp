@@ -1,4 +1,4 @@
-<html lang="en">
+﻿<html lang="en">
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Source+Sans+Pro&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.typekit.net/keg2rfp.css">
@@ -28,5 +28,21 @@
         <li>M9 MD9</li>
         <li>M10 MD10</li>
     </ul>
+    <script> 
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        var myHeaders = new Headers();
+    myHeaders.append("Cookie", "__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1YthRgw@@R5U; bungles=WebView=False");
+
+    var requestOptions = {
+     method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch(proxyUrl+"http://www.bungie.net/News/NewsRss.ashx", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+    </script>
     </body>
 </html>

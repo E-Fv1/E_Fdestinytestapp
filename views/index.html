@@ -85,7 +85,12 @@
 
         <br />
     </div>
-
+    <br /><br /><br />
+    <!--
+    <script src="//rss.bloople.net/?url=http%3A%2F%2Fwww.bungie.net%2FNews%2FNewsRss.ashx&detail=-1&showtitle=false&type=js"></script>
+    -->
+    <p id="rssThing">None</p>
+    <br /><br /><br />
     <h2>Steam username lookup</h2>
 
     <a style="display:none" id="apostatePicture" href="https://www.light.gg/db/items/2164448701/"><h2>Apostate</h2>    <img class="wepIMG" src="https://i.imgur.com/5lekk7r.png" alt="Altars Of Sorrow Weapon" /></a>
@@ -161,7 +166,29 @@
     <br /><br /><br />
 
     <!--  \/  \/  JS  \/  \/  -->
+    <script>
+        var rssResponse;
+        var proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+        var myHeaders = new Headers();
+        myHeaders.append("Cookie", "__cfduid=dc09cea3d95edeeaf57be20068d3061121594429651; bungled=3003931655291159902; bungledid=B1gxoP3JMYtLnXFMi9gavaHgIQrLNiXYCAAA; Q6dA7j3mn3WPBQVV6Vru5CbQXv0q+I9ddZfGro+PognXQwjW=v1YthRgw@@R5U; bungles=WebView=False");
 
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+        fetch(proxyUrl + "http://www.bungie.net/News/NewsRss.ashx", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+        fetch(proxyUrl + "http://www.bungie.net/News/NewsRss.ashx", requestOptions)
+            .then(response => response.text())
+            .then(result => result.split("<item>")) //man
+            .catch(error => console.log('error', error));
+            document.getElementById("rssThing").innerHTML = typeof rssResponse
+        //alert(rssResponse)
+    </script>
     <script>
         var periodicRun = setInterval(function () {
             if (isBothSheet()) {

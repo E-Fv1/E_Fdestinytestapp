@@ -4,10 +4,12 @@ const request = require("request")
 const bodyParser = require("body-parser")
 const fs = require("fs")
 
-//IN PROGRSS: Nightfall info, need to make accented letters not appear as question marks
+//IN PROGRSS: In Nightfall info, need to make accented letters not appear as question marks
 //
 //TODO: Do a todayindestiny style altars of sorrow weapon indicator DONE
-//      
+//      integrate the rss feed for d2 news http://www.bungie.net/News/NewsRss.ashx
+//
+//     
 //
 //NOTE TO SELF: When extracting data from a request function assign it to only the relevant data or else it may become undefined
 
@@ -266,8 +268,8 @@ app.get("/nightfall", function (req, res) {
     rawActivityInfo = JSON.parse(rawActivityInfo)
     rawModifierInfo = JSON.parse(rawModifierInfo)
 
-    let nightfallName = currentNightfall[0]["activityHash"] // Index 3 is the 1080 Master Level Nightfall
-    let masterNFModifierHashes = currentNightfall[3]["modifierHashes"]
+    let nightfallName = currentNightfall[8]["activityHash"] // Index 3 is the 1080 Master Level Nightfall
+    let masterNFModifierHashes = currentNightfall[8]["modifierHashes"]
     //console.log(masterNFModifierHashes)
 
     let masterNFModifierNames = []; // The first thingy in i index in the array is the name then description
