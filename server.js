@@ -310,3 +310,9 @@ app.get("/storeData", function (req, res) {
     res.set("Content-type", "text/html")
     res.send("<body><script>alert(\"Session ID: " + idIndex + " " + authCode + "\");window.location.replace(\"https://destiny2test-e-f.herokuapp.com/\")</script></body>")
 });
+
+app.get("/images", function(req, res) {
+    let userID = req.ip;
+    console.log(userID);
+    res.sendFile(__dirname + "/public/images/dreamingcity.png");
+});
