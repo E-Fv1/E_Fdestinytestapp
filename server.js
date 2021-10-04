@@ -313,7 +313,7 @@ app.get("/storeData", function (req, res) {
 
 app.get("/images", function(req, res) {
     let userID = req.ip;
-    request.headers['x-forwarded-for'];
+    req.headers['x-forwarded-for'];
     console.log(userID);
     res.sendFile(__dirname + "/public/images/dreamingcity.png");
 });
