@@ -314,5 +314,5 @@ app.get("/storeData", function (req, res) {
 app.get("/images", function(req, res) {
     let userID = req.headers['x-forwarded-for'];
     console.log(userID);
-    res.sendFile(__dirname + "/public/images/dreamingcity.png");
+    res.sendFile(__dirname + "/public/images/i-have-your-ip-address-garfield.gif");
 });
